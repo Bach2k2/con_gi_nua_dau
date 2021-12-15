@@ -1,0 +1,33 @@
+#pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+class Customer {
+protected:
+	string cusId;
+	string cusName;
+	string phoneNum;
+	string address;
+
+public:
+	Customer* next;
+	Customer(string = "", string = "", string = "", string = "");
+	Customer(const Customer&);
+	~Customer();
+	friend ostream& operator<<(ostream&, const Customer&);
+	void fromString(string);
+	//get va set
+	void setCusData();
+	void setCusId(string);
+	void setCusName(string);
+	void setPhoneNum(string);
+	void setAddress(string);
+	string getCusId() {
+		return cusId;
+	}
+	string getCusName() { return cusName; }
+	string getPhoneNum() { return phoneNum; }
+	string getAddress() { return address; }
+
+};
+
