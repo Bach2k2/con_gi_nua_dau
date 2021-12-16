@@ -10,8 +10,8 @@ UnitPrice::UnitPrice(int unit)
 		this->rank[i] = 0;
 	}
 	this->unitMeter = unit;
-	this->total = 0; 
-		this->peak = 1;
+	this->total = 0;
+	this->peak = 1;
 }
 UnitPrice::~UnitPrice()
 {
@@ -97,8 +97,9 @@ void UnitPrice::showUnitPrice()
 	cout << "\n Muc\tSo chi dien tai moi muc \t Gia tien tai moi muc" << endl;
 	for (int i = 0; i < peak; i++)
 	{
-		cout << "\n"<<i+1 << "\t\t " << unitRank[i] << "  \t\t\t" << priceRank[i];
+		cout << "\n" << i + 1 << "\t\t " << unitRank[i] << "  \t\t\t" << priceRank[i];
 	}
+	cout << "\n Muc cao nhat: " << this->peak;
 	cout << "\n\t\t\t\t\t Tong tien:" << total << endl;
 }
 void UnitPrice::readData(string path)

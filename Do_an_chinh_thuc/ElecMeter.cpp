@@ -82,4 +82,3 @@ void ElecMeter::fromString(string line)
     this->nextMeter = stof(result[2]);
     this->unit = this->nextMeter - this->prevMeter;
 }
-    

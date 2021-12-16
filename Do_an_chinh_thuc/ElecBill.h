@@ -8,7 +8,6 @@ class ElecBill
 private:
     int billId;
     static int increment; // id tu tang
-   
     Date beginDate;
     Date endDate;
     double price;
@@ -21,7 +20,7 @@ public:
     ElecBill* next;
     ElecBill();
   //  ElecBill(int billId, int, int, int, string, string, string ,string,Date,Date,UnitPrice&);
-    ElecBill(Date,Date,UnitPrice&);
+    ElecBill(ElecMeter,Customer,Date,Date,UnitPrice&);
     ElecBill(const ElecBill&);
     ~ElecBill();
     void setBillId(int);

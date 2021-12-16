@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include "MeterService.h"
 #include "CustomerService.h"
@@ -22,6 +21,7 @@ int main()
 //	cin >> mPath;
 	mPath = "meter.txt";
 	meterManager.readFile(mPath);
+	system("pause");
 	cout << "Calculate price" << endl;
 	//	qli.calculatePrice();
 	string path2;
@@ -29,7 +29,8 @@ int main()
 	//cin >> path2;
 	path2 = "customer.txt";
 	cusManager.readDataInFile(path2);
-	//	qli.display();
+	string path3="CongTo_KhachHang.txt";
+	billManager.readTwoId(path3);
 	displayMainMenu();
 }
 void displayBillMenu()
@@ -101,6 +102,14 @@ void displayBillMenu()
 		}
 		case 6:
 		{
+			cout << "\n CHUC NANG: IN VAO FILE";
+			string savePath;
+			cout << "Nhap duong dan: ";
+			cin >> savePath;
+			billManager.writeIntoFile(savePath);
+		}
+		case 7:
+		{
 			cout << "\n CHUC NANG: IN TAT CA HOA DON THEO KHU VUC";
 			cout << "Nhap khu vuc muon tim kiem:  " << endl;
 			string area;
@@ -109,8 +118,9 @@ void displayBillMenu()
 			system("pause");
 			break;
 		}
-		case 7:
+		case 8:
 		{
+			
 			/*
 			* MonthList* qLiTheoThang = new MonthList();
 			cout << "Quan ly danh sach cua hoa don theo thang" << endl;
@@ -323,6 +333,7 @@ void displayCustomerMenu()
 		}
 		case 5:
 		{
+			cout << "\nCHUC NANG: IN DANH SACH KHACH HANG: " << endl;
 			system("cls");
 			cusManager.display();
 			system("pause");
@@ -330,11 +341,18 @@ void displayCustomerMenu()
 		}
 		case 6:
 		{
+			cout << "\nCHUC NANG: IN VAO FILE" << endl;
 			cout << "Nhap ten file" << endl;
 			string KhPath;
 			cin >> KhPath;
 			cusManager.writeDataInFile(KhPath);
 			system("pause");
+			break;
+		}
+		case 7:
+		{
+			cout << "\nCHUC NANG: SAP XEP DANH SACH THEO TEN" << endl;
+			cusManager.sortByName();
 			break;
 		}
 		case 0:

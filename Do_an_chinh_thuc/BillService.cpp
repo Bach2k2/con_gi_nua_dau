@@ -1,6 +1,5 @@
 #include "BillService.h"
-#include "MeterService.h"
-#include "CustomerService.h"
+
 int BillService::billAmount = 0;
 BillService::BillService()
 {
@@ -11,20 +10,32 @@ BillService::~BillService()
 {
 
 }
-void  BillService::readTwoId(string path)
+void BillService::readTwoId(string path)
 {
+	meterList.readFile("meter.txt");
+	cusList.readDataInFile("customer.txt");
 	path = "CongTo_KhachHang.txt";
 	fstream file(path, ios::in);
 	if (file.is_open())
 	{
+		string line;
 		while (!file.eof())
 		{
-			string line;
-			ElecBill* bill = new ElecBill();
-			getline(file, line);
-			bill->fromStringId(line);
+			int meterId;
+			file >> meterId;
+			cout << meterId;
+			string cusId="";
+			file >> cusId;
+			cout << cusId;
+			ElecMeter meter=meterList.getMeter(meterId);
+			cout << meter.getMeterNumber();
+			Customer cus = cusList.getACus(cusId);
+			cout << cus.getAddress();
+			Date date1;
+			Date date2;
+			UnitPrice uPrice;
+			ElecBill* bill = new ElecBill(meter, cus, date1, date2, uPrice);
 			add(bill);
-			billAmount++;
 		}
 	}
 	else
@@ -32,20 +43,18 @@ void  BillService::readTwoId(string path)
 		cout << "Duong dan khong ton tai" << endl;
 	}
 }
-void BillService::add()
+void BillService::writeIntoFile(string path)
 {
-	MeterService* meterList = new MeterService();
-	CustomerService* cusList = new CustomerService();
-	ElecBill* bill = pHead;
-	while (bill != NULL)
+	ofstream oFile(path);
+	if (oFile.is_open())
 	{
-		int n_meterNumber = bill->meterNumber;
-		string n_cusID = bill->cusID;
-		bill->meter = meterList->getMeter(n_meterNumber);
-		bill->customer = cusList->getACus(n_cusID);
-		bill = bill->next;
+		ElecBill* bill = pHead;
+		while (bill != NULL)
+		{
+			//Dinh dang 
+			bill = bill->next;
+		}
 	}
-	billAmount++;
 }
 void BillService::add(ElecBill* bill)
 {
@@ -164,6 +173,28 @@ void BillService::search()
 		bill = bill->next;
 	}
 
+}
+bool BillService::isEmpty()
+{
+	if (pHead == NULL)
+	{
+		return true;
+	}
+	else return false;
+}
+bool BillService::contain(int billID)
+{
+	ElecBill* bill = pHead;
+	while (bill != NULL)
+	{
+		if (bill->getBillId() == billID)
+		{
+			return true;
+			break;
+		}
+		bill = bill->next;
+	}
+	return false;
 }
 
 

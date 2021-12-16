@@ -1,4 +1,7 @@
+#pragma once
 #include "ElecBill.h"
+#include "MeterService.h"
+#include "CustomerService.h"
 class BillService
 {
 private:         //BillService
@@ -8,10 +11,13 @@ private:         //BillService
     
     
 public:
+
     BillService();
     ~BillService();
-    void add();//Thêm nhập từ bàn phím
-    void add(ElecBill* bill);// Nhận từ file
+    MeterService meterList;
+    CustomerService cusList;
+    void setMetAndCus();//Thêm nhập từ bàn phím
+    void add(ElecBill*);// Nhận từ file
     bool isEmpty();// Danh sách có rỗng
     void remove();// Xóa
     void removeFirst();//Xóa
@@ -24,7 +30,7 @@ public:
     bool contain(int);
     void calculatePrice();
 
-    void MonthManger();
+    void writeIntoFile(string path);
     void readTwoId(string path);
     void readAMonth(string path);
     void displayWithArea(string);

@@ -22,12 +22,14 @@ public:
 	void setCusName(string);
 	void setPhoneNum(string);
 	void setAddress(string);
+	void getOtherCus(const Customer&);
 	string getCusId() {
 		return cusId;
 	}
 	string getCusName() { return cusName; }
 	string getPhoneNum() { return phoneNum; }
 	string getAddress() { return address; }
-
+	bool compareTo(Customer&);
+	string getLastName();
 };
 

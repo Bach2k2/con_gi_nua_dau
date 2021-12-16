@@ -1,4 +1,3 @@
-#pragma once
 #include "CustomerService.h"
 #include <string>
 #include<fstream>
@@ -14,12 +13,22 @@ int CustomerService::cusAmount = 0;
 //QUEUE
 void CustomerService::enqueue()
 {
+	bool check = true;
 	Customer* customer = new Customer();
 	string cusID;
 	do {
-		cout << "Nhap MKH" << endl;
+		cout << "Nhap Ma Khach Hang: " << endl;
 		cin >> cusID;
-	} while (contain(cusID));
+		if (contain(cusID))
+		{
+			check = false;
+			cout << "nhap lai ! Ma khach hang bi trung" << endl;
+		}
+		else
+		{
+			check = true;
+		}
+	} while (!check);
 	customer->setCusId(cusID);
 	customer->setCusData();
 	if (cusHead == NULL)
@@ -32,7 +41,7 @@ void CustomerService::enqueue()
 
 	}
 	cusTail = customer;
-	cusTail->next = cusHead;
+//	cusTail->next = cusHead;
 	cusAmount++;
 }
 void CustomerService::enqueue(Customer* customer)
@@ -46,7 +55,7 @@ void CustomerService::enqueue(Customer* customer)
 		cusTail->next = customer;
 	}
 	cusTail = customer;
-	cusTail->next = cusHead;
+//	cusTail->next = cusHead;
 	cusAmount++;
 }
 void CustomerService::dequeue()
@@ -73,7 +82,7 @@ void CustomerService::dequeue()
 		else {
 			Customer* temp = cusHead;
 			cusHead = cusHead->next;
-			cusTail->next = cusHead;
+//			cusTail->next = cusHead;
 			free(temp);
 		}
 	}
@@ -88,12 +97,11 @@ void CustomerService::display()
 	{
 		cout << "| Ma Khach Hang | " << "| Ten khach hang | " << "| Dia chi | " << "| So dien thoai | " << endl;
 		Customer* temp = cusHead;
-		while (temp->next != cusHead)
+		while (temp->next != NULL)
 		{
 			cout << *temp;
 			temp = temp->next;
 		}
-		cout << *temp;
 	}
 	
 }
@@ -111,7 +119,7 @@ bool CustomerService::contain(string cusID)
 		{
 			if ((temp->getCusId().compare(cusID)) == 0)return true;
 			temp = temp->next;
-		} while (temp != cusHead);
+		} while (temp != NULL);
 	}
 	return false;
 }
@@ -289,9 +297,12 @@ Customer& CustomerService::getACus(string cusId)
 	while (temp != NULL)
 	{
 		if (temp->getCusId().compare(cusId) == 0)
+		{
+			cout << " Tim thay kh" << endl;
 			return *temp;
+		}
+		temp = temp->next;
 	}
-	return *cusHead;
 }
 void CustomerService::displayUpdateMenu()
 {
@@ -338,5 +349,17 @@ void CustomerService::searchByName()
 }
 void CustomerService::sortByName()
 {
-
+	for (Customer* temp = cusHead; temp != NULL; temp = temp->next)
+	{
+		for (Customer* temp2 = temp->next; temp2 != NULL; temp2 = temp2->next)
+		{
+			if (temp->compareTo(*temp2))
+			{
+				Customer* holder=new Customer();
+				holder->getOtherCus(*temp);
+				temp->getOtherCus(*temp2);
+				temp2->getOtherCus(*holder);
+			}
+		}
+	}
 }

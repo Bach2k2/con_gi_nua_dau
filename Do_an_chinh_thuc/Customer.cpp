@@ -32,7 +32,13 @@ void Customer::setPhoneNum(string phoneNum)
 {
 	this->phoneNum = phoneNum;
 }
-
+void Customer::getOtherCus(const Customer& cus)
+{
+	this->cusId = cus.cusId;
+	this->cusName = cus.cusName;
+	this->address = cus.address;
+	this->phoneNum = cus.phoneNum;
+}
 void Customer::setCusData()
 {
 	bool check = true;
@@ -54,7 +60,6 @@ void Customer::setCusData()
 	do
 	{
 		cout << "Nhap dia chi: ";
-		cin.ignore(32767, '\n');
 		getline(cin, address);
 		if (address == ""||address=="\n")
 		{
@@ -71,25 +76,24 @@ void Customer::setCusData()
 		cout << "Nhap so dien thoai: ";
 		cin.ignore(32767, '\n');
 		getline(cin, phoneNumber);
-		for (int i = 0; i < phoneNumber.length(); i++)
-		{
-			if (!isdigit(phoneNumber[i])) { check = false; break; }
-			check = true;
-		}
-		if (phoneNumber == "")check = false;
+		if (phoneNumber == "") { check = false; }
 		else
 		{
 			check = true;
+		}
+		for (int i = 0; i < phoneNumber.length(); i++)
+		{
+			if (!isdigit(phoneNumber[i])) { check = false; break; }
+			else { check = true; }
 		}
 	} while (!check);
 	this->phoneNum = phoneNumber;
 }
 ostream& operator<<(ostream& o, const Customer& cus)
 {
-		o << "| Ma Khach Hang | " << "| Ten khach hang | " << " | Dia chi | " << "| So dien thoai | " << endl;
-		o<< cus.cusId
-		 << cus.cusName
-		 << cus.address
+		o<< cus.cusId <<char(226)<<" "
+		 << cus.cusName << char(226) << " "
+		 << cus.address << char(226) << " "
 		 << cus.phoneNum << endl;
 	return o;
 }
@@ -100,7 +104,7 @@ void Customer::fromString(string str)
 	string word;
 	for (int i = 0; i <= str.length(); i++)
 	{
-		if (str[i] == ' ' || i == str.length())
+		if (str[i] == ',' || i == str.length())
 		{
 
 			arr[count++] = word;
@@ -122,5 +126,26 @@ void Customer::fromString(string str)
 	}
 	this->cusName = this->cusName.substr(0, cusName.length() - 1);
 	this->cusId = arr[0];
+}
+string Customer::getLastName()
+{
+	int length = this->getCusName().length();
+	string lastName;
+	int pos=0;
+	for (int i = length; i > 0; i--)
+	{
+		if (this->cusName[i] == ' ')
+		{
+			pos = i;
+			break;
+		}
+	}
+	lastName = cusName.substr(pos, length);
+	return lastName;
+}
+bool Customer::compareTo(Customer& cus)
+{
+	if (this->getLastName().compare(cus.getLastName()) < 0) return false;
+	else return true;
 }
 

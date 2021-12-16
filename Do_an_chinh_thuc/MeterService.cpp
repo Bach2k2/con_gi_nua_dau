@@ -155,18 +155,17 @@ void MeterService::display()
 ElecMeter& MeterService::getMeter(int meterNumber)
 {
 	ElecMeter* temp = mHead;
-	if (contain(meterNumber))
+
+	while (temp != NULL)
 	{
-		while (temp != NULL)
+		if (temp->getMeterNumber() == meterNumber)
 		{
-			if (temp->getMeterNumber() == meterNumber)
-			{
-				cout << "da tim thay" << endl;
-				return *temp;
-			}
-			temp = temp->next;
+			cout << "da tim thay" << endl;
+			return *temp;
 		}
+		temp = temp->next;
 	}
+	throw "Error! Khong tim duoc so cong to";
 }
 void MeterService::search()
 {

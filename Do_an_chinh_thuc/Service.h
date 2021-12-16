@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-using namespace std;
 class Service
 {
     virtual void add() = 0;
