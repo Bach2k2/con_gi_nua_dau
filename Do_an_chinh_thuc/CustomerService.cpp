@@ -310,6 +310,7 @@ void CustomerService::searchByName()
 		cin.ignore(32767, '\n');
 		cout << "Nhap ten khach hang can tim kiem" << endl;
 		getline(cin, cusName);
+		cout << cusName;
 		if (cusName == "")
 		{
 			check = false;
@@ -324,11 +325,11 @@ void CustomerService::searchByName()
 	int pos = 0;
 	int count = 0;
 	Customer* temp = cusHead;
-
 	while (temp != NULL)
 	{
 		if (temp->getCusName().find(cusName, pos) != string::npos) {
 			cout << *temp;
+			cout << "ok";
 			count++;
 		}
 		temp = temp->next;

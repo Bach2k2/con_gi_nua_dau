@@ -14,12 +14,14 @@ private:
     double price;
     UnitPrice unitPrice;
 public:
-    ElecMeter meter;
-    Customer customer;
+    int meterNumber;
+    string cusID;
+    ElecMeter meter; // cong to
+    Customer customer;// khach hang
     ElecBill* next;
     ElecBill();
   //  ElecBill(int billId, int, int, int, string, string, string ,string,Date,Date,UnitPrice&);
-    ElecBill(int billId,Date,Date,UnitPrice&);
+    ElecBill(Date,Date,UnitPrice&);
     ElecBill(const ElecBill&);
     ~ElecBill();
     void setBillId(int);
@@ -34,4 +36,5 @@ public:
     void showUnitPrice();
     void showBillOut();
     void fromStringId(string);
+    void fromStringMonth(string);
 };

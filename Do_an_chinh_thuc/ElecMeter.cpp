@@ -30,7 +30,7 @@ ElecMeter::~ElecMeter()
 }
 ostream& operator<<(ostream& os,const ElecMeter& meter)
 {
-    os << meter.meterNumber << meter.prevMeter << " " << meter.nextMeter << " " << meter.unit << endl;
+    os << meter.meterNumber <<"\t\t" << meter.prevMeter << " " << meter.nextMeter << " " << meter.unit << endl;
     return os;
 }
 void  ElecMeter::setMeterNumber(int number)
@@ -69,6 +69,7 @@ void ElecMeter::fromString(string line)
         {
 
             result[count++] = cell;
+            cell = "";
         }
         else
         {
@@ -81,3 +82,4 @@ void ElecMeter::fromString(string line)
     this->nextMeter = stof(result[2]);
     this->unit = this->nextMeter - this->prevMeter;
 }
+    

@@ -1,15 +1,16 @@
 #include "ElecBill.h"
-int ElecBill::increment = 0;
+int ElecBill::increment = 1;
 ElecBill::ElecBill()
 {
 	this->next = NULL;
-	this->billId = 0;
+	this->billId = increment++;
 	this->price = 0;
+
 }
 
-ElecBill::ElecBill(int billId,Date beginDate,Date endDate, UnitPrice& uPrice)
+ElecBill::ElecBill(Date beginDate,Date endDate, UnitPrice& uPrice)
 {
-	this->billId = billId;
+	this->billId = increment++;
 	this->beginDate = beginDate;
 	this->endDate = endDate;
 	this->next = NULL;
@@ -65,7 +66,16 @@ void ElecBill::showBillOut()
 		<< "\n Gia dien\n"; unitPrice.showUnitPrice();
 	cout << "Tong tien: " << unitPrice.getTotalPrice();
 	*/
-	
+	cout << "-------------------------------------" << endl;
+	cout << "|\nId hoa don" << this->getBillId();
+	cout << "|\nTen Khach Hang: " << this->customer.getCusName() << "\t " << "Ma Khach Hang: " << "\t\t" << this->customer.getCusId();
+	cout << "|\nSo dien thoai: " << this->customer.getPhoneNum();
+	cout << "|\nDia chi: " << this->customer.getAddress();
+	cout << "|\n so cong to" << this->meter.getMeterNumber();
+	cout << "|\n so dien truoc " << this->meter.getPrevMeter() << "\t\t" << "so dien sau" << this->meter.getNextMeter();
+	cout << "|\n ";
+	this->showUnitPrice();
+	cout << "--------------------------------------------" << endl;
 }
 void ElecBill::fromStringId(string line)
 {
@@ -83,6 +93,27 @@ void ElecBill::fromStringId(string line)
 			cell += line[i];
 		}	
 	}
-	this->meter.setMeterNumber(stof(result[0]));
-	this->customer.setCusId(result[1]);
+	this->meterNumber=(stof(result[0]));
+	this->cusID=result[1];
+}
+void ElecBill::fromStringMonth(string line)
+{
+	string result[2];
+	string cell;
+	int count = 0;
+	for (int i = 0; i <= line.length(); i++)
+	{
+		if (line[i] == ';' || i == line.length())
+		{
+			result[count++] = cell;
+		}
+		else {
+			cell += line[i];
+		}
+	}
+	if (this->meter.getMeterNumber() == stof(result[0]))
+	{
+		int n_prevMeter = this->meter.getNextMeter();
+		this->meter.setNextMeter(stof(result[1]));
+	}	
 }

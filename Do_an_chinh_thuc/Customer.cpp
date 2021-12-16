@@ -56,7 +56,7 @@ void Customer::setCusData()
 		cout << "Nhap dia chi: ";
 		cin.ignore(32767, '\n');
 		getline(cin, address);
-		if (address == "")
+		if (address == ""||address=="\n")
 		{
 			check = false;
 			cout << "Nhap lai" << endl;
@@ -71,7 +71,7 @@ void Customer::setCusData()
 		cout << "Nhap so dien thoai: ";
 		cin.ignore(32767, '\n');
 		getline(cin, phoneNumber);
-		for (int i = 0; i < phoneNumber.size(); i++)
+		for (int i = 0; i < phoneNumber.length(); i++)
 		{
 			if (!isdigit(phoneNumber[i])) { check = false; break; }
 			check = true;

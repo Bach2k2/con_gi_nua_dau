@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 using namespace std;
 class Date
@@ -10,7 +11,9 @@ private:
 	void increaseDay();//Ham tang ngay len 1
 public:
 	Date(int D = 1, int M = 1, int Y = 1900);
+	~Date();
 	void setDate(int, int, int);
+	void setDate();
 	Date operator++(); //Tien to
 	Date operator++(int);// Hau to
 	const Date& operator +=(int);

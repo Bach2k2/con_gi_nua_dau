@@ -5,7 +5,7 @@ using namespace std;
 class ElecMeter
 {
 protected:
-    int meterNumber;
+    int meterNumber;// Khoa chinh
     int prevMeter;
     int nextMeter;
     int unit;

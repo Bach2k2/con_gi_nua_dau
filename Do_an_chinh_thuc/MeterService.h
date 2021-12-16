@@ -1,3 +1,5 @@
+#include <fstream>
+using namespace std;
 #include "ElecMeter.h"
 class MeterService
 {
@@ -9,7 +11,6 @@ private:
    public:
         MeterService();
         ~MeterService();
-        MeterService* next;
         void add();//Thêm nhập từ bàn phím
         void add(ElecMeter* bill);// Nhận từ file
         bool isEmpty();// Danh sách có rỗng
@@ -20,10 +21,11 @@ private:
         void display(); // Rồi
         void search();  // chưa làm đc
         void readFile(string path); // Đọc file
+        void writeFile(string path); // in ra file
         bool contain(int);
         void calculatePrice();
         void MonthManger();
-        const ElecMeter& getMeter(int meterNum);
+        ElecMeter& getMeter(int meterNum);
  };
 
 

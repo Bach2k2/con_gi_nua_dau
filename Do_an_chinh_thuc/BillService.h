@@ -26,6 +26,7 @@ public:
 
     void MonthManger();
     void readTwoId(string path);
-
+    void readAMonth(string path);
+    void displayWithArea(string);
 };
 
